@@ -2,7 +2,7 @@
 
 # Introduction
 
-The Bridge Creative Travel App is to make journey's to places of work less scarey for those volunteers on placements in workplaces.
+The Bridge Creative Travel App is to make journey's to places of work less scarey for those volunteers on work placements.
 
 # People
 
