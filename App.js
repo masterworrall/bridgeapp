@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react"
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, Modal, Linking } from 'react-native';
 import bclogo from './assets/bclogo.webp'
 
 import SupportCircle from './components/SupportCircle.js'
@@ -14,13 +14,13 @@ export default function App() {
       id: 1,
       name: 'Ben Tinkler',
       role: 'Dad',
-      telephone: '555-1234',
+      telephone: '+447984516038',
     },
     {
       id: 2,
       name: 'Paul Worrall',
       role: 'Mum',
-      telephone: '555-5678',
+      telephone: '+447711330213',
     },
     {
       id: 3,
@@ -32,7 +32,14 @@ export default function App() {
 
   const handleSelectMember = (supporter) => {
     // Do something with the selected supporter
-    console.log('Selected Supporter:', supporter);
+    console.log('Calling Supporter:', supporter);
+
+    // make a call to the number of the support circle member
+
+   // Linking.openURL(`tel:${supporter.telephone}`);
+   const message = "I need help. I am going to [?] and am here [?]"
+    Linking.openURL(`sms:${supporter.telephone}?body=${message}`);
+
   };
 
   return (
