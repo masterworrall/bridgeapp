@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Button, Modal } from 'react-native';
@@ -7,6 +8,33 @@ import SupportCircle from './components/SupportCircle.js'
 
 export default function App() {
   const [ isModalVisible, setIsModalVisible ] = useState(false);
+
+  const members = [
+    {
+      id: 1,
+      name: 'Ben Tinkler',
+      role: 'Dad',
+      telephone: '555-1234',
+    },
+    {
+      id: 2,
+      name: 'Paul Worrall',
+      role: 'Mum',
+      telephone: '555-5678',
+    },
+    {
+      id: 3,
+      name: 'Michael Johnson',
+      role: 'Support Worker',
+      telephone: '555-9101',
+    },
+  ];
+
+  const handleSelectMember = (supporter) => {
+    // Do something with the selected supporter
+    console.log('Selected Supporter:', supporter);
+  };
+
   return (
     <View style={styles.container}>
       <Image source={bclogo} style={{width: 100, height: 100}}></Image>
@@ -17,8 +45,11 @@ export default function App() {
       <Modal visible={isModalVisible} onRequestClose={ () => setIsModalVisible(false)} 
         animationType="slide" color="#247197">
         <View style={styles.modal}>
-          <SupportCircle/>
+
+          <SupportCircle members={members} onSelectMember={handleSelectMember} />
+
           <Button title="Close" onPress={() => setIsModalVisible(false)} color='#22c096'/>
+
         </View>
       </Modal >
 
