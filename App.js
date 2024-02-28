@@ -1,8 +1,9 @@
-import React from 'react';
-import { useState } from "react"
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Button, Modal, Linking } from 'react-native';
 import bclogo from './assets/bclogo.webp'
+
+import Geolocation from '@react-native-community/geolocation';
 
 import SupportCircle from './components/SupportCircle.js'
 
@@ -31,13 +32,26 @@ export default function App() {
   ];
 
   const handleSelectMember = (supporter) => {
-    // Do something with the selected supporter
-    console.log('Calling Supporter:', supporter);
 
-    // make a call to the number of the support circle member
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
+    Geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      },
+      (error) => {
+        console.error(error);
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+    // Do something with the selected supporter
+    console.log('Messaging Supporter:', supporter);
 
    // Linking.openURL(`tel:${supporter.telephone}`);
-   const message = "I need help. I am going to [?] and am here [?]"
+   const message = "I need help. I am going to [?] and am here; latitude " + latitude + "longitude " + longitude  ;
     Linking.openURL(`sms:${supporter.telephone}?body=${message}`);
 
   };
