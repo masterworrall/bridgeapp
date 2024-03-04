@@ -5,8 +5,6 @@ import bclogo from './assets/bclogo.webp'
 
 import * as Location from 'expo-location';
 
-// import Geolocation from '@react-native-community/geolocation';
-
 import SupportCircle from './components/SupportCircle.js'
 
 export default function App() {
