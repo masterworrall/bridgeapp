@@ -3,12 +3,38 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Button, Modal, Linking } from 'react-native';
 import bclogo from './assets/bclogo.webp'
 
-import Geolocation from '@react-native-community/geolocation';
+import * as Location from 'expo-location';
+
+// import Geolocation from '@react-native-community/geolocation';
 
 import SupportCircle from './components/SupportCircle.js'
 
 export default function App() {
   const [ isModalVisible, setIsModalVisible ] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  // Need try catch here!
+  useEffect(() => {
+    (async () => {
+      
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  console.log('Waiting..');
+  if (errorMsg) {
+    console.log('errorMsg');
+  } else if (location) {
+    console.log(JSON.stringify(location));
+  }
 
   const members = [
     {
@@ -33,25 +59,11 @@ export default function App() {
 
   const handleSelectMember = (supporter) => {
 
-    const [latitude, setLatitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
-
-    Geolocation.getCurrentPosition(
-      (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      },
-      (error) => {
-        console.error(error);
-      },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-
     // Do something with the selected supporter
     console.log('Messaging Supporter:', supporter);
 
    // Linking.openURL(`tel:${supporter.telephone}`);
-   const message = "I need help. I am going to [?] and am here; latitude " + latitude + "longitude " + longitude  ;
+   const message = "I need help. I am going to [?] and am here; latitude " + location['coords']['latitude'] + " , " + "longitude " + location['coords']['longitude']  ;
     Linking.openURL(`sms:${supporter.telephone}?body=${message}`);
 
   };
