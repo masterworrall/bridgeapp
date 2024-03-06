@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, Linking } from "react-native";
+import { View, Text, Pressable, Linking } from "react-native";
 import * as Location from 'expo-location';
+
+import { styles } from '../globals/styles.js'
 
 import SupportCircle from '../components/SupportCircle.js';
 
@@ -63,43 +65,11 @@ const help = () => {
 
     };
     return (
-        <View style={styles.modal}>
+        <View style={styles.container}>
             <SupportCircle members={members} onSelectMember={handleSelectMember} />
         </View>
     );
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#247212',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    modal: {
-      flex: 1,
-      backgroundColor: '#22c096',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
-      backgroundColor: 'black',
-    },
-    text: {
-      fontSize: 16,
-      lineHeight: 21,
-      fontWeight: 'bold',
-      letterSpacing: 0.25,
-      color: 'white',
-    },
-  });
-  
 
 export default help;

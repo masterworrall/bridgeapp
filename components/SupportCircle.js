@@ -1,12 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+
+import { styles } from '../globals/styles.js';
 
 const SupportCircle = ({ members, onSelectMember }) => {
     function renderMemberItem({ item }) {
         return (
-          <View>
+          <View style={styles.container}>
             <TouchableOpacity onPress={() => onSelectMember(item)}>
-                <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
+                <View style={styles.helper}>
                     <Text>Name: {item.name}</Text>
                     <Text>Role: {item.role}</Text>
                     <Text>Telephone: {item.telephone}</Text>
@@ -24,14 +26,5 @@ const SupportCircle = ({ members, onSelectMember }) => {
       />
     );
   };
-
-  const styles = StyleSheet.create({
-    input: {
-      height: 40,
-      margin: 12,
-      padding: 10,
-      borderWidth: 1
-    }
-  });
   
   export default SupportCircle;
