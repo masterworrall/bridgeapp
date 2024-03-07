@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, Linking } from "react-native";
+import { View } from "react-native";
 import * as Location from 'expo-location';
+import * as SMS from 'expo-sms';
 
 import { styles } from '../globals/styles.js'
 
@@ -33,6 +34,7 @@ const help = () => {
       const [errorMsg, setErrorMsg] = useState(null);
     
     // Need try catch here!
+    // https://interition.atlassian.net/browse/BCTA-73
     useEffect(() => {
         (async () => {
           
@@ -54,15 +56,22 @@ const help = () => {
         console.log(JSON.stringify(location));
       }
 
+      const sendSms = async (telephone,message) => {
+        console.log("sending ");
+        const {result} = await SMS.sendSMSAsync(
+          [telephone],
+          message
+        );
+      }
+
     const handleSelectMember = (supporter) => {
 
-        // Do something with the selected supporter
-        console.log('Messaging Supporter:', supporter);
-
         // Linking.openURL(`tel:${supporter.telephone}`);
-        const message = "I need help. I am going to [?] and am here; latitude " + location['coords']['latitude'] + " , " + "longitude " + location['coords']['longitude'];
-        Linking.openURL(`sms:${supporter.telephone}?body=${message}`);
-
+        const url = "https://www.google.com/maps/@?api=1&map_action=map&query=" + location['coords']['latitude'] + "%" + location['coords']['longitude'];
+        const message = "Hi, I need help. I am here " + url ;
+        console.log(message);
+        sendSms(supporter.telephone,message);
+        
     };
     return (
         <View style={styles.container}>
