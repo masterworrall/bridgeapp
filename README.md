@@ -6,4 +6,4 @@ The Bridge Creative Travel App is to make journey's to places of work less scare
 
 # People
 
-The Product Manager and Owner is Ben Tinkler, Managing Director of Bridge Creative CIC, and the CTO is Paul Worrall, of Interition.
+The Product Manager and Owner is Ben Tinkler, Managing Director of Bridge Creative CIC, and the CTO is Paul Worrall, of Interition. Dale Webb of Dale Digital was the lead developer.
